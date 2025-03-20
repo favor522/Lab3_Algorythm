@@ -2,30 +2,26 @@
 #include <Windows.h>
 using namespace std;
 
-int* WritePointer(int* a, int r) {
-	*a = r;
-	return a;
+void gui();
+
+int* WritePointer(int* Pointer) {
+	int numb = rand() % 10 -2;
+	*Pointer = numb;
+	return Pointer;
 }
 
-void initArray(int* arr, int n) {
-	for (int i = 0; i < n; i++) {
-		WritePointer(arr + i, 2 + rand() % 8); 
-	}
-}
-
-void ReadPointer(int* a) { 
-	cout << *a << " "; 
+void ReadPointer(int* Pointer) { 
+	cout << *Pointer << " "; 
 }
 
 int* NewPointer(int n) {
-
 	int* A = new int[n];
 	return A;
 }
 
-void printArray(int* arr, int n) {
+void MassivPrinter(int* mas, int n) {
 	for (int i = 0; i < n; i++) {
-		ReadPointer(arr + i);
+		ReadPointer(mas + i);
 	}
 	cout << '\n';
 }
@@ -40,15 +36,69 @@ void FreePointer(int*& A) {
 	}
 }
 
-void Check(int* a, int* b, int* c) {
-	if (a != nullptr || b != nullptr || c != nullptr){ 
-		cout << "Происходит повторное выделение памяти: старые данные не сохраняются" <<  '\n';
+void Check(int* A) {
+	if (A != nullptr) {
+		cout << "Перезапись данных! Старые данные не будут сохранены" << '\n';
+		FreePointer(A);
 	}
+}
 
+int CountSum(int* mas, int n) {
+	int Sum = 0;
+	for (int i = 0; i < n; i++) {
+		int el = *(mas + i);
+		if (el > 3 || 8 < el) {
+			Sum += el;
+		}
+	}
+	return Sum;
+}
+
+int CountSumNechet(int* mas, int n) {
+	int Sum = 0;
+	for (int i = 0; i < n; i++) {
+	int el = *(mas + i);
+		if (el%2 != 0) {
+			Sum += el;
+		}
+	}
+	return Sum;
 }
 
 void Task1() {
-	int n;
+	int n, i = 0;
+	while (true) {
+		cout << "Введите число элементов массива: ";
+		cin >> n;
+		if (cin.fail() || n <= 0) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "Введено неверное значение, не соответствующее условиям! Попробуйте снова" << '\n';
+		}
+		else {
+			break;
+		}
+	}
+	int* A = nullptr;
+	Check(A);
+	A = NewPointer(n);
+	for (int i = 0; i < n; i++) {
+		WritePointer(A + i);
+	}
+	MassivPrinter(A, n);
+	Check(A);
+	A = NewPointer(n);
+	for (int i = 0; i < n; i++) {
+		WritePointer(A + i);
+	}
+	MassivPrinter(A, n);
+	cout << "Сумма элементов больше 3 и меньше 8: " << CountSum(A, n) << '\n';
+	FreePointer(A);
+	gui();
+}
+
+void Task2() {
+	int n, i = 0;
 	while (true) {
 		cout << "Введите число элементов массива: ";
 		cin >> n;
@@ -61,17 +111,29 @@ void Task1() {
 			break;
 		}
 	}
-}
-
-void Task2() {
-
+	int* A = nullptr;
+	Check(A);
+	A = NewPointer(n);
+	for (int i = 0; i < n; i++) {
+		WritePointer(A + i);
+	}
+	MassivPrinter(A, n);
+	Check(A);
+	A = NewPointer(n);
+	for (int i = 0; i < n; i++) {
+		WritePointer(A + i);
+	}
+	MassivPrinter(A, n);
+	cout << "Сумма нечётных элементов : " << CountSumNechet(A, n) << '\n';
+	FreePointer(A);
+	gui();
 }
 
 void gui() {
 	string choose;
 	cout << "Выберите действие: " << '\n';
-	cout << "1. Задание на удаление всех переносов" << '\n';
-	cout << "2. Задание на базу абонентов номеров" << '\n';
+	cout << "1. Задание на массив и сумму элементов 3 < n > 8" << '\n';
+	cout << "2. Задание на массив и нечётные элементы" << '\n';
 	cout << "3. Выйти" << '\n';
 	cin >> choose;
 	if (choose == "1") {
@@ -92,6 +154,7 @@ void gui() {
 }
 
 int main() {
+	srand(time(0));
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	gui();

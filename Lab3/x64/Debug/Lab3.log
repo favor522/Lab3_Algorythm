@@ -1,0 +1,4 @@
+﻿  Source.cpp
+C:\Users\User\Desktop\C++2kurs\Algorythm and struct of data\Lab3\Lab3_Algorythm\Lab3\Source.cpp(148,3): warning C4551: в вызове функции отсутствует список аргументов
+C:\Users\User\Desktop\C++2kurs\Algorythm and struct of data\Lab3\Lab3_Algorythm\Lab3\Source.cpp(157,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Lab3.vcxproj -> C:\Users\User\Desktop\C++2kurs\Algorythm and struct of data\Lab3\Lab3_Algorythm\Lab3\x64\Debug\Lab3.exe
